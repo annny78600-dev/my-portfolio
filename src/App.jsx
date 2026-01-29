@@ -12,11 +12,13 @@ import ThemeToggle from './components/ThemeToggle';
 import { useState } from 'react';
 import { ThemeProvider, useTheme } from './context/themeContext';
 import BackToTop from './components/backtoTop';
+import useTabChange from './hooks/useTabChange';
 
 
 
 function App() {
    const { theme } = useTheme();
+    useTabChange();
   return (
     <>
         <AnimatedCursor

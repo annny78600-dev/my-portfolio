@@ -21,7 +21,7 @@ const Navbar = () => {
   const toggleDrawer = (open) => () => setIsDrawerOpen(open);
 
   return (
-    <header className="w-full z-[999] py-3 px-4 sm:px-6 md:px-8 fixed top-0 bg-white dark:bg-black/80 shadow-md dark:shadow-none backdrop-blur-md transition-all duration-300">
+    <header className="w-[99%] lg:w-full z-[999] py-3 px-4 sm:px-6 md:px-8 fixed top-0 bg-white dark:bg-black/80 shadow-md dark:shadow-none backdrop-blur-md transition-all duration-300">
       <div className="flex justify-between items-center w-full">
 
         {/* Left: Logo */}
@@ -62,7 +62,7 @@ const Navbar = () => {
               {active === item && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute left-0 -bottom-1 h-[2px] w-full bg-blue-500"
+                  className="absolute left-0 bottom-1 h-[2px] w-full bg-purple-500"
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
               )}
@@ -93,7 +93,7 @@ const Navbar = () => {
           {/* Mobile Drawer Icon */}
           <div className="md:hidden">
             <IconButton onClick={toggleDrawer(true)} className="text-black dark:text-white">
-              <MenuIcon />
+              <MenuIcon  className="text-black dark:text-white"/>
             </IconButton>
           </div>
         </div>
@@ -105,21 +105,28 @@ const Navbar = () => {
         open={isDrawerOpen}
         onClose={toggleDrawer(false)}
         PaperProps={{
+          sx: {
+            backgroundColor: theme === "dark" ? "#000" : "#fff",
+            color: theme === "dark" ? "#fff" : "#000",
+          },
           className: 'bg-white dark:bg-black text-black dark:text-white w-3/4 sm:w-1/2 transition-all duration-300',
+
         }}
+
       >
+        
         <div className="flex justify-end p-4">
           <IconButton onClick={toggleDrawer(false)} className="text-black dark:text-white">
-            <CloseIcon />
+            <CloseIcon className="text-black dark:text-white"/>
           </IconButton>
         </div>
 
-        {/* 📌 This is your mobile nav */}
+        {/*  mobile nav */}
         <div className="flex flex-col gap-6 p-6">
           {navItems.map((item) => (
             <div
               key={item}
-              className={`text-lg font-medium cursor-pointer ${active === item ? 'text-blue-500' : ''}`}
+              className={`text-lg font-medium cursor-pointer ${active === item ? 'text-purple-500' : ''}`}
               onClick={() => {
                 setActive(item);
                 setIsDrawerOpen(false); 
@@ -131,7 +138,7 @@ const Navbar = () => {
               {active === item && (
                 <motion.div
                   layoutId="underline"
-                  className="h-[2px] w-full bg-blue-500 mt-1"
+                  className="h-[2px] w-full bg-purple-500 mt-1"
                 />
               )}
             </div>

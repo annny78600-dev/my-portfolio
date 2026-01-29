@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const experiences = [
   {
-    year: "Jan 2024 - Present",
+    year: "Jan 2024 - Dec 2025",
     title: "React JS Developer",
     company: "WePro Solution",
     location: "Mohali, Punjab",

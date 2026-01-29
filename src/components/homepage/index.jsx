@@ -13,7 +13,7 @@ const Banner = ({theme}) => {
     }, []);
 
     return (
-        <div id="home" className="relative min-h-screen overflow-x-hidden">
+        <div id="home" className="relative min-h-[70vh] lg:min-h-screen overflow-x-hidden">
             {/* Navbar */}
             <Navbar />
              
@@ -41,7 +41,7 @@ const Banner = ({theme}) => {
 
             {/* Banner Content */}
             
-            <div className="mt-[15%] relative z-20 flex flex-col items-center justify-start h-full px-6 text-center">
+            <div className="lg:mt-[15%]  mt-[55%]  relative z-20 flex flex-col items-center justify-start h-full px-6 text-center">
                 <motion.h1
                     className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
                     initial={{ y: 50, opacity: 0 }}

@@ -1,0 +1,61 @@
+export const skillGroups = [
+  {
+    id: "languages",
+    title: "Languages",
+    note: "Daily drivers",
+    skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3", "SQL"],
+  },
+  {
+    id: "frontend",
+    title: "Frontend engineering",
+    note: "Core strength",
+    skills: [
+      "React.js",
+      "Next.js (App Router)",
+      "Redux Toolkit",
+      "React Hooks",
+      "React Hook Form",
+      "Reusable component architecture",
+      "Frontend performance",
+    ],
+  },
+  {
+    id: "ui",
+    title: "Styling & UI systems",
+    note: "Responsive by default",
+    skills: ["Tailwind CSS", "Material UI", "Ant Design", "shadcn/ui", "Bootstrap", "Sass / SCSS", "Framer Motion"],
+  },
+  {
+    id: "api",
+    title: "APIs & data",
+    note: "Growing focus",
+    skills: ["Next.js API routes", "REST API integration", "Prisma", "PostgreSQL", "Supabase", "Zod validation"],
+  },
+  {
+    id: "integrations",
+    title: "Integrations & automation",
+    note: "Workflow-driven",
+    skills: [
+      "Webhooks",
+      "WhatsApp Cloud API",
+      "Gmail & Google APIs",
+      "Firebase Cloud Messaging",
+      "Supabase Realtime",
+      "AWS S3",
+      "AI calling workflows",
+      "OpenAI API integration",
+    ],
+  },
+  {
+    id: "architecture",
+    title: "Auth & architecture",
+    note: "Access done right",
+    skills: ["JWT authentication", "Role-based access control", "Branch / tenant data scoping", "Multi-tenant frontends", "Backend-for-Frontend layers"],
+  },
+  {
+    id: "delivery",
+    title: "Delivery & tooling",
+    note: "From commit to server",
+    skills: ["Git & GitHub", "GitHub Actions", "PM2", "Linux VPS", "Vercel", "Axios", "Recharts", "Cursor", "Claude Code"],
+  },
+];

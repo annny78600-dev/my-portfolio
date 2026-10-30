@@ -1,17 +1,27 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext({ theme: 'dark', setTheme: () => {} });
+
+const readStoredTheme = () => {
+  try {
+    return localStorage.getItem('theme');
+  } catch {
+    return null;
+  }
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  // Dark is the brand default; a saved choice wins.
+  const [theme, setTheme] = useState(() => readStoredTheme() || 'dark');
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#060509' : '#f7f6fb');
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // Storage can be unavailable (private mode); the theme still applies for this visit.
     }
-    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (
@@ -21,4 +31,5 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext);

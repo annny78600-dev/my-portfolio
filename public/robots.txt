@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anila-iqbal.vercel.app/sitemap.xml

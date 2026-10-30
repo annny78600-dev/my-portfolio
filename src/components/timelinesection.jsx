@@ -1,109 +1,178 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    year: "Jan 2024 - Dec 2025",
+    year: "March 2026 – Present",
+    title: "Software Developer",
+    company: "Base2Brand Infotech",
+    location: "Mohali, Punjab",
+    desc: "Frontend development and end-to-end project work across Next.js APIs, Prisma data models, webhooks, CRM workflows, and deployment.",
+    projects: [
+      {
+        title: "B2B Campus Exam Portal & Integrated Lead CRM",
+        role: "End-to-End Developer",
+        technologies: "Next.js, TypeScript, Prisma ORM, API Routes, Webhooks",
+        details: [
+          "Developed and maintained modules for students, courses, teachers, assignments, notes, examinations, placements, staff management, and communication workflows.",
+          "Worked on Prisma schemas and relational models, Next.js API routes, frontend features, and deployment.",
+          "Implemented branch-level data visibility and role-based access control.",
+          "Built CRM workflows for lead assignment, follow-ups, and lead status tracking.",
+          "Integrated campaign data and Callyzer call-tracking events using webhooks.",
+          "Integrated OmniDimension AI calling workflows to re-engage older leads and connect interested leads with assigned counsellors.",
+        ],
+      },
+      {
+        title: "JDP Admin Portal",
+        role: "Primarily Frontend Developer",
+        technologies: "Next.js, React, TypeScript, Redux Toolkit, Supabase, Firebase",
+        details: [
+          "Built frontend modules for jobs, workforce management, timesheets, supplier orders, invoicing, analytics, and approval workflows.",
+          "Implemented PDF invoices, Supabase Realtime notifications, Firebase Cloud Messaging, Google Maps GPS tracking features, and role-based UI access.",
+        ],
+      },
+      {
+        title: "ProRev — Vehicle Repair Management Platform",
+        role: "Frontend Developer with Next.js BFF/API Work",
+        technologies: "Next.js, React, TypeScript, Material UI, REST APIs",
+        details: [
+          "Built a multi-role SaaS dashboard for jobs, vehicles, technicians, insurance pricing, and technician pay.",
+          "Implemented PDF invoices, CSV import/export, and browser-based VIN barcode scanning using Dynamsoft WebAssembly and ZXing.",
+          "Built Next.js API routes as a Backend-for-Frontend layer over a separate REST API backend.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "January 2024 – December 2025",
     title: "React JS Developer",
     company: "WePro Solution",
     location: "Mohali, Punjab",
-    desc: "Building modern web apps with ReactJS, TypeScript, Redux, Tailwind, Bootstrap, and MUI. Collaborate with backend teams to deliver features on time."
+    desc: [
+      "Developed React applications using TypeScript, Redux, and REST APIs.",
+      "Implemented authentication and role-based UI logic integrated with Laravel APIs.",
+      "Worked on frontend performance optimization using memoization, lazy loading, and code splitting.",
+    ],
   },
   {
-    year: "Nov 2022 - Nov 2023",
+    year: "November 2022 – November 2023",
     title: "Associate Frontend Engineer",
     company: "Zestgeek Solutions",
     location: "Mohali, Punjab",
-    desc: "Created dynamic user interfaces with ReactJS, NextJS, and TypeScript. Focused on responsive and performant frontend solutions."
+    desc: [
+      "Built reusable React.js and Next.js components.",
+      "Used TypeScript, reusable hooks, and modular architecture.",
+      "Collaborated with designers and backend engineers in Agile workflows.",
+    ],
   },
   {
-    year: "July 2022 - Oct 2022",
+    year: "July 2022 – October 2022",
     title: "Frontend Trainee",
     company: "Zenid Infotech",
     location: "Mohali, Punjab",
-    desc: "Enhanced skills in HTML, CSS, ReactJS while working on dynamic frontend features."
-  }
+    desc: [
+      "Developed interactive UI features using HTML, CSS, and React.",
+      "Assisted with debugging and fixing frontend issues.",
+    ],
+  },
 ];
 
 const education = [
-  {
-    year: "2019 - 2022",
-    degree: "Bachelor of Computer Applications",
-    institution: "Guru Nanak Dev University"
-  },
-  {
-    year: "2018 - 2019",
-    degree: "+2",
-    institution: "KMRD Jain College, Malerkotla"
-  }
+  { year: "2019 – 2022", degree: "Bachelor of Computer Applications (BCA)", institution: "Guru Nanak Dev University, India" },
+  { year: "2018 - 2019", degree: "+2", institution: "KMRD Jain College, Malerkotla" },
 ];
 
 const TimelineSection = () => {
+  const sectionRef = useRef(null);
+  const imageRef = useRef(null);
+  const visualRef = useRef(null);
+  const itemRefs = useRef([]);
+  const educationRefs = useRef([]);
+
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    gsap.from([...itemRefs.current, ...educationRefs.current], {
+      y: 100,
+      autoAlpha: 0,
+      stagger: 0.14,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
+    });
+
+    gsap.fromTo(visualRef.current, { autoAlpha: 0, clipPath: "inset(0 0 100% 0)" }, {
+      autoAlpha: 1,
+      clipPath: "inset(0 0 0% 0)",
+      duration: 1.1,
+      ease: "power4.out",
+      scrollTrigger: { trigger: visualRef.current, start: "top 82%", once: true },
+    });
+
+    gsap.to(imageRef.current, {
+      yPercent: 14,
+      scale: 1.12,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  }, { scope: sectionRef });
+
   return (
-    <div id="experience" className="bg-white text-black dark:bg-black dark:text-white py-10 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-        
-        {/* Experience */}
-        <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold mb-6 text-purple-600 dark:text-purple-400">Experience</h2>
-          <div className="space-y-6">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <p className="text-purple-600 dark:text-purple-400 font-semibold">{exp.year}</p>
-                <p className="font-bold">{exp.title}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {exp.company} — {exp.location}
-                </p>
-                <p className="text-gray-700 dark:text-gray-300 text-sm">{exp.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+    <section ref={sectionRef} id="experience" className="stacked-section min-h-screen bg-[#f2f0e9] px-6 py-24 text-[#171814] transition-colors duration-300 dark:bg-[#191b18] dark:text-[#f4f2e9] sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 max-w-3xl">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#ce6339]">Experience</p>
+          <h2 className="text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-6xl">A practice built across products, teams, and systems.</h2>
         </div>
 
-        {/* Education */}
-        <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold mb-6 text-purple-600 dark:text-purple-400">Education</h2>
-          <div className="space-y-6">
-            {education.map((edu, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <p className="text-purple-600 dark:text-purple-400 font-semibold">{edu.year}</p>
-                <p className="font-bold">{edu.degree}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{edu.institution}</p>
-              </motion.div>
-            ))}
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.4fr_0.85fr] lg:gap-20">
+          <div>
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#ce6339]">Experience</p>
+            <div className="border-t border-black/15 dark:border-white/15">
+              {experiences.map((exp, index) => (
+                <article ref={(element) => { itemRefs.current[index] = element; }} key={exp.title} className="grid gap-5 border-b border-black/15 py-7 dark:border-white/15 sm:grid-cols-[0.65fr_1fr] sm:gap-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#ce6339]">{exp.year}</p>
+                  <div>
+                    <h3 className="text-xl font-semibold leading-tight">{exp.title}</h3>
+                    <p className="mt-2 text-sm text-black/55 dark:text-white/55">{exp.company} / {exp.location}</p>
+                    {Array.isArray(exp.desc) ? <ul className="mt-4 space-y-2 text-sm leading-6 text-black/65 dark:text-white/65">{exp.desc.map((item) => <li key={item} className="flex gap-2"><span className="text-[#ce6339]" aria-hidden="true">›</span><span>{item}</span></li>)}</ul> : <p className="mt-4 max-w-xl text-sm leading-6 text-black/65 dark:text-white/65">{exp.desc}</p>}
+                    {exp.projects?.map((project) => (
+                      <div key={project.title} className="mt-7 border-l-2 border-[#ce6339]/50 pl-4 sm:pl-5">
+                        <h4 className="text-base font-semibold leading-snug">{project.title}</h4>
+                        <p className="mt-2 text-xs font-medium text-[#a84425] dark:text-[#f3a06f]">{project.role}</p>
+                        <p className="mt-1 text-xs leading-5 text-black/50 dark:text-white/50">{project.technologies}</p>
+                        <ul className="mt-3 space-y-2 text-sm leading-6 text-black/65 dark:text-white/65">{project.details.map((item) => <li key={item} className="flex gap-2"><span className="text-[#ce6339]" aria-hidden="true">›</span><span>{item}</span></li>)}</ul>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div>
+          <div ref={visualRef} className="group relative mb-14 h-64 overflow-hidden border border-black/15 bg-[#171814] dark:border-white/15 sm:h-80">
+            <img ref={imageRef} src="/lapatop_timeline.avif" alt="Laptop showing a product workflow" className="h-[125%] w-full object-cover grayscale transition duration-700 group-hover:grayscale-0" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171814]/80 via-transparent to-transparent" />
+            <p className="absolute bottom-5 left-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#f3a06f]">Built through iteration</p>
+          </div>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#ce6339]">Education</p>
+          <div className="border-t border-black/15 dark:border-white/15">
+            {education.map((edu, index) => <article ref={(element) => { educationRefs.current[index] = element; }} key={edu.degree} className="border-b border-black/15 py-7 dark:border-white/15"><p className="text-xs font-semibold uppercase tracking-[0.14em] text-black/45 dark:text-white/45">{edu.year}</p><h3 className="mt-3 text-xl font-semibold leading-tight">{edu.degree}</h3><p className="mt-2 text-sm text-black/55 dark:text-white/55">{edu.institution}</p></article>)}
           </div>
         </div>
-
-        {/* Image + Note */}
-        <motion.div
-          className="flex flex-col items-center justify-center text-center"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="w-full h-56 bg-gray-200 dark:bg-gray-800 rounded-xl flex items-center justify-center overflow-hidden">
-            <img
-              className="rounded-xl h-full object-cover w-full"
-              src="./lapatop_timeline.avif"
-              alt="Timeline Visual"
-            />
-          </div>
-          <p className="mt-4 text-gray-700 dark:text-gray-300 text-sm">
-            Transforming ideas into interactive and engaging web solutions.
-          </p>
-        </motion.div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

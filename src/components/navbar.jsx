@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { Drawer, IconButton, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import SunnyIcon from '@mui/icons-material/Sunny';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { motion } from 'framer-motion';
 import { useTheme } from '../context/themeContext';
 
-const navItems = ['Home', 'Skills', 'Experience', 'Projects', 'Contact'];
+const navItems = ['Home', 'Skills', 'Projects', 'Automation', 'Experience', 'Contact'];
 
 const Navbar = () => {
   const [active, setActive] = useState('Home');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, 'change', (current) => {
+    const previous = scrollY.getPrevious() ?? 0;
+
+    if (current > previous && current > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -21,21 +33,25 @@ const Navbar = () => {
   const toggleDrawer = (open) => () => setIsDrawerOpen(open);
 
   return (
-    <header className="w-[99%] lg:w-full z-[999] py-3 px-4 sm:px-6 md:px-8 fixed top-0 bg-white dark:bg-black/80 shadow-md dark:shadow-none backdrop-blur-md transition-all duration-300">
+    <motion.header
+      animate={{
+        y: hidden && !isDrawerOpen ? -140 : 0,
+        opacity: hidden && !isDrawerOpen ? 0 : 1,
+      }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className="w-[99%] lg:w-full z-[999] py-3 px-4 sm:px-6 md:px-8 fixed top-0 bg-[#f2f0e9]/90 dark:bg-[#191b18]/90 text-[#171814] dark:text-[#f4f2e9] shadow-md dark:shadow-none backdrop-blur-md"
+    >
       <div className="flex justify-between items-center w-full">
 
         {/* Left: Logo */}
-        <div className="flex items-center space-x-4">
-          <img
-            src="/anila-logo-light.png"
-            alt="Logo Light"
-            className="h-[55px] block dark:hidden"
-          />
-          <img
-            src="/anila-logo-1.png"
-            alt="Logo Dark"
-            className="h-[55px] hidden dark:block"
-          />
+        <div className="flex items-center">
+          <div className="flex items-center gap-2" aria-label="Anila Iqbal">
+            <span className="font-mono text-3xl leading-none text-[#ce6339]" aria-hidden="true">&#123;</span>
+            <span className="font-semibold leading-none tracking-[-0.04em]">
+              <span className="block text-base">Anila</span>
+              <span className="block text-base">Iqbal</span>
+            </span>
+          </div>
         </div>
 
         {/* Center: Desktop Nav */}
@@ -60,11 +76,7 @@ const Navbar = () => {
                 {item}
               </span>
               {active === item && (
-                <motion.div
-                  layoutId="underline"
-                  className="absolute left-0 bottom-1 h-[2px] w-full bg-purple-500"
-                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                />
+                <div className="absolute bottom-1 left-0 h-[2px] w-full bg-[#ce6339]" />
               )}
             </div>
           ))}
@@ -126,7 +138,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <div
               key={item}
-              className={`text-lg font-medium cursor-pointer ${active === item ? 'text-purple-500' : ''}`}
+              className={`text-lg font-medium cursor-pointer ${active === item ? 'text-[#ce6339]' : ''}`}
               onClick={() => {
                 setActive(item);
                 setIsDrawerOpen(false); 
@@ -136,17 +148,14 @@ const Navbar = () => {
             >
               {item}
               {active === item && (
-                <motion.div
-                  layoutId="underline"
-                  className="h-[2px] w-full bg-purple-500 mt-1"
-                />
+                <div className="mt-1 h-[2px] w-full bg-[#ce6339]" />
               )}
             </div>
           ))}
         </div>
       </Drawer>
 
-    </header>
+    </motion.header>
   );
 };
 

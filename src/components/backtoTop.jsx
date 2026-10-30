@@ -35,11 +35,11 @@ const BackToTop = () => {
             outline: "none",
             boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
             padding: '5px 11px',
-            color:theme === "dark" ? "white" : "purple"
+            color:theme === "dark" ? "#f3a06f" : "#ce6339"
           }}
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="fixed bottom-6 right-6 z-50 bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+            className="fixed bottom-6 right-6 z-50 bg-[#ce6339] hover:bg-[#b9512d] text-white p-3 rounded-full shadow-lg transition-all duration-300"
            >
             <ArrowUpCircle size={28} />
       </button>

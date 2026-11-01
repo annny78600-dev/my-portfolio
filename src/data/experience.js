@@ -1,5 +1,5 @@
 // Employment history only. Project details live in ./projects.js.
-export const experience = [
+ export const experience = [
   {
     company: "Base2Brand Infotech",
     title: "Software Developer",

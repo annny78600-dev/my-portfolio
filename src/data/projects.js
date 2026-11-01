@@ -14,7 +14,7 @@ export const projects = [
   {
     id: "b2b-campus-portal",
     title: "B2B Campus — Exam Portal & Internal Management Platform",
-    shortTitle: "B2B Campus Portal",
+    shortTitle: "B2B Campus Exam Portal",
     company: "Base2Brand Infotech",
     period: "2026 – Present",
     role: "Software Developer",
@@ -23,6 +23,8 @@ export const projects = [
     categories: ["webapp", "dashboard"],
     hue: 268,
     featured: true,
+    image: "/b2bcampus-portal.webp",
+    website: "https://exam.b2bcampus.com/",
     summary:
       "The internal platform behind Base2Brand's training institute: academics, examinations, staff, branches, CRM, and messaging in one Next.js application.",
     description:
@@ -43,7 +45,7 @@ export const projects = [
       "Custom role and permission system with branch-wise data scoping",
       "Zod validation, WebSockets (ws), Cloudinary image storage, PDF generation and parsing",
       "Rich-text editing with CKEditor 5, TipTap, and React Quill",
-      "Served from b2bcampus.com and dat.b2bcampus.com via PM2 on a Linux VPS",
+      "Served from exam.b2bcampus.com and dat.b2bcampus.com via PM2 on a Linux VPS",
     ],
     stack: [
       "Next.js 16",
@@ -77,7 +79,8 @@ export const projects = [
     categories: ["website"],
     hue: 248,
     featured: true,
-    website: "https://b2bcampus.com/",
+    image: "/b2bcampus.webp",
+    website: "https://www.b2bcampus.com/",
     summary:
       "The public website for Base2Brand's career training institute, with 20+ course pages, 100+ location-targeted SEO landing pages, and lead capture built in.",
     description:
@@ -123,7 +126,9 @@ export const projects = [
     kind: "frontend",
     categories: ["dashboard"],
     hue: 200,
-        summary:
+    image: "/jdp.webp",
+    website: "https://newjdpfrontend.prorevv.com/",
+    summary:
       "An operations dashboard for an electrical contractor, covering jobs, field staff, timesheets, suppliers, orders, invoices, and approvals.",
     description:
       "The admin frontend for an electrical services business, connected to a separate main backend. The frontend repository also contains a set of Next.js API routes for integrations such as Gmail, file storage, and supplier invoice processing.",
@@ -168,7 +173,9 @@ export const projects = [
     kind: "frontend",
     categories: ["dashboard", "webapp"],
     hue: 290,
-        summary:
+    image: "/prorev.webp",
+    website: "https://prorevv.ai/admin",
+    summary:
       "A multi-role SaaS dashboard for vehicle repair shops: customers, vehicles, repair jobs, technicians, insurance, VIN workflows, and reporting.",
     description:
       "A Next.js frontend application for repair-shop operations. Its API routes act as a Backend-for-Frontend layer that proxies requests to a separate external backend; the backend itself lives outside this project.",

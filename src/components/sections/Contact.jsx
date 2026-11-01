@@ -9,6 +9,19 @@ const messages = {
   loading: "Sending your message…",
   success: "Thanks! Your message has been sent. I'll get back to you soon.",
   error: `Something went wrong. Please try again, or email me directly at ${profile.email}.`,
+  invalidEmail: "Please enter a valid email address (for example, name@company.com).",
+};
+
+// Stricter than the browser's built-in check: requires a real-looking domain and TLD,
+// matching what Formspree accepts (it rejects addresses like "a@b.c").
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+// Formspree returns { errors: [{ field, message }] } for validation failures.
+const describeError = (data) => {
+  const fieldError = data?.errors?.[0];
+  if (fieldError?.field === "email") return messages.invalidEmail;
+  if (fieldError?.message) return `${fieldError.message}. Please check the form and try again.`;
+  return messages.error;
 };
 
 const inputClass =
@@ -16,6 +29,7 @@ const inputClass =
 
 const Contact = () => {
   const [status, setStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
@@ -31,17 +45,29 @@ const Contact = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
+    const data = new FormData(form);
+    if (!EMAIL_PATTERN.test(String(data.get("email")).trim())) {
+      setErrorMessage(messages.invalidEmail);
+      setStatus("error");
+      form.elements.email.focus();
+      return;
+    }
     setStatus("loading");
     try {
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        body: new FormData(form),
+        body: data,
         headers: { Accept: "application/json" },
       });
-      if (!response.ok) throw new Error("Unable to send message");
+      if (!response.ok) {
+        setErrorMessage(describeError(await response.json().catch(() => null)));
+        setStatus("error");
+        return;
+      }
       setStatus("success");
       form.reset();
     } catch {
+      setErrorMessage(messages.error);
       setStatus("error");
     }
   };
@@ -118,7 +144,7 @@ const Contact = () => {
               <ArrowUpRight size={17} aria-hidden="true" />
             </button>
             <p role="status" aria-live="polite" className={`mt-4 min-h-6 text-sm ${status === "error" ? "text-red-500 dark:text-red-400" : "text-muted"}`}>
-              {messages[status] ?? ""}
+              {status === "error" ? errorMessage : messages[status] ?? ""}
             </p>
           </form>
         </Reveal>

@@ -43,6 +43,7 @@
       "Used TypeScript, reusable hooks, and modular component architecture.",
       "Collaborated with designers and backend engineers in Agile workflows.",
     ],
+    projectIds: ["kwikpic", "clearrx"],
   },
   {
     company: "Zenid Infotech",
